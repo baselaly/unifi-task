@@ -45,5 +45,26 @@ const findOneAndDelete = async (
   }
 };
 
-export { findOne, create, findOneAndUpdate, findOneAndDelete };
+const find = async (
+  conditions: FilterQuery<ITaskDocument>,
+  { limit, skip }: { limit: number; skip: number }
+): Promise<Array<ITaskDocument>> => {
+  try {
+    return await Task.find(conditions).limit(limit).skip(skip).lean();
+  } catch (err) {
+    throw err;
+  }
+};
+
+const count = async (
+  conditions: FilterQuery<ITaskDocument>
+): Promise<number> => {
+  try {
+    return await Task.countDocuments(conditions);
+  } catch (err) {
+    throw err;
+  }
+};
+
+export { findOne, create, findOneAndUpdate, findOneAndDelete, find, count };
 

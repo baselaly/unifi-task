@@ -4,3 +4,8 @@ export const customEmailValidation = () => {
   };
 };
 
+export const getLimitAndSkipOptions = (page: number, perPage: number) => {
+  const skip = (page - 1) * perPage;
+  return { skip, limit: perPage };
+};
+

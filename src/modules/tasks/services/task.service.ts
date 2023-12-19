@@ -1,10 +1,13 @@
 import CustomError from "../../../utils/custom.error";
+import { getLimitAndSkipOptions } from "../../../utils/helper";
 import { ITask } from "../interfaces/task.interface";
 import {
   create,
   findOne,
   findOneAndDelete,
   findOneAndUpdate,
+  find,
+  count,
 } from "../respositories/task.repository";
 
 const taskServiceCreate = async (data: ITask) => {
@@ -59,10 +62,32 @@ const taskServiceDelete = async (taskId: string, userId: string) => {
   }
 };
 
+const taskServicegetAll = async (
+  userId: string,
+  page: number,
+  perPage: number
+) => {
+  try {
+    const conditions = { user: userId };
+
+    const { limit, skip } = getLimitAndSkipOptions(page, perPage);
+
+    const tasks = await find(conditions, { limit, skip });
+    const noOfTasks = await count(conditions);
+
+    const totalPages = Math.ceil(noOfTasks / limit);
+
+    return { tasks, totalPages };
+  } catch (err) {
+    throw err;
+  }
+};
+
 export {
   taskServiceCreate,
   taskServiceUpdate,
   taskServiceget,
   taskServiceDelete,
+  taskServicegetAll,
 };
 
