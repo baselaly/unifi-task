@@ -1,0 +1,30 @@
+# - Todo App For the Users to Manage Their Tasks.
+
+## Steps Before Run The App.
+
+## - Run `npm install` to install the dependencies
+
+## - create .env file by copying .env.example
+
+## - Run `npm run db:seed` to insert test-user in the database
+
+```bash
+email:unifi@gmail.com / password:123456
+```
+
+## Running the app
+
+```bash
+# watch mode
+$ npm run dev
+
+# production mode
+$ npm run build
+$ npm run prod
+
+# production mode (cluster mode for multi-instance)
+$ npm install -g pm2
+$ npm run build
+$ npm run cluster:prod
+```
+
